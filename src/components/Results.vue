@@ -8,7 +8,14 @@
     </p>
 
     <ul>
-      <li class="movie-item" v-for="result in results" :key="result">
+      <!-- trying to add background image here
+       v-bind:style="{backgroundImage: 'url(' + require ("'https://image.tmdb.org/t/p/w150_and_h225_bestv2'+ result.background_path")}" 
+       background-image: url('https://image.tmdb.org/t/p/w150_and_h225_bestv2/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');-->
+         
+      <li class="movie-item"
+       v-for="result in results" :key="result" >
+      
+         
         <img v-bind:src="'https://image.tmdb.org/t/p/w150_and_h225_bestv2'+ result.poster_path" v-bind:alt="result.title + 'Poster'" class="poster-image">
         <h2 class="title"><a v-bind:href="'https://www.themoviedb.org/movie/'+result.id">{{ result.title }}</a></h2>
         <div class="ratings">
@@ -20,7 +27,7 @@
         <p class="overview">
           {{ result.overview }}
         </p>
-        <p class="release-date">Original Release: {{ result.release_date }}</p>
+        <p class="release-date">Original Release: {{ result.release_date | dateFormat}}</p>
         <ul class="genre-list">
           <li v-for="genre in result.genres" :key="genre">{{ genre }}</li>
         </ul>
@@ -34,6 +41,59 @@ import apiresults from "../assets/apiresults.js";
 export default {
   data() {
     return apiresults;
+  },
+  filters: {
+    dateFormat: function(dateString) {
+      let year = dateString.slice(0,4);
+      let month = dateString.slice(5,7);
+      let day = dateString.slice(8,10);
+      if(day.charAt(0)==0) {
+        day = day.slice(1,2);
+      }
+      let monthName = "";
+      switch(month){
+        case "01": 
+          monthName = "January";
+          break;
+        case "02":
+          monthName = "February";
+          break;
+        case "03":
+          monthName = "March";
+          break;
+        case "04":
+          monthName = "April";
+          break;
+        case "05":
+          monthName = "May";
+          break;
+        case "06":
+          monthName = "June";
+          break;
+        case "07":
+          monthName = "July";
+          break;
+        case "08":
+          monthName = "August";
+          break;
+        case "09":
+          monthName = "September";
+          break;
+        case "10":
+          monthName = "October";
+          break;
+        case "11":
+          monthName = "November";
+          break;
+        case "12":
+          monthName = "December";
+          break;
+          default:
+             monthName = "Christmas";
+
+      }
+      return `${monthName} ${day}, ${year}`;
+    }
   }
 };
 </script>
@@ -55,6 +115,11 @@ ul {
   margin: 10px 0;
   padding: 2rem;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
 }
 .movie-item img {
   float: left;
@@ -95,4 +160,6 @@ ul {
 a {
   color: #42b983;
 }
+
+
 </style>
