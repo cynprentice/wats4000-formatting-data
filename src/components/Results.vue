@@ -2,20 +2,17 @@
   <div class="results">
     <h1>Top Movies from the 20<sup>th</sup> Century</h1>
     <p class="search-meta">
-      <span class="current-page"><b>Current Page:</b> {{page}}</span>
-      <span class="total-pages"><b>Pages:</b> {{total_pages}}</span>
-      <span class="total-results"><b>Count:</b> {{total_results}}</span>
+      <span class="current-page"><b>Current Page: </b> {{page}} </span>
+      <span class="total-pages"><b>Pages: </b> {{total_pages}} </span>
+      <span class="total-results"><b>Count: </b> {{total_results}} </span>
     </p>
 
     <ul>
-      <!-- trying to add background image here
-       v-bind:style="{backgroundImage: 'url(' + require ("'https://image.tmdb.org/t/p/w150_and_h225_bestv2'+ result.background_path")}" 
-       background-image: url('https://image.tmdb.org/t/p/w150_and_h225_bestv2/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg');-->
+      <!-- Stretch goal: Added the background image here. -->
          
       <li class="movie-item"
-       v-for="result in results" :key="result" >
-      
-         
+       v-for="result in results" :key="result" :style='`background-image:url("https://image.tmdb.org/t/p/w150_and_h225_bestv2/` + result.backdrop_path + `");`'>
+
         <img v-bind:src="'https://image.tmdb.org/t/p/w150_and_h225_bestv2'+ result.poster_path" v-bind:alt="result.title + 'Poster'" class="poster-image">
         <h2 class="title"><a v-bind:href="'https://www.themoviedb.org/movie/'+result.id">{{ result.title }}</a></h2>
         <div class="ratings">
@@ -90,7 +87,6 @@ export default {
           break;
           default:
              monthName = "Christmas";
-
       }
       return `${monthName} ${day}, ${year}`;
     }
@@ -115,11 +111,12 @@ ul {
   margin: 10px 0;
   padding: 2rem;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-
+  background-color: #cccccc;
+  /* styling for background image is not appealing but 
+  the image appears for the sake experimenting with Vue.js */
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-
+  background-position: right bottom;
+  
 }
 .movie-item img {
   float: left;
@@ -160,6 +157,4 @@ ul {
 a {
   color: #42b983;
 }
-
-
 </style>
