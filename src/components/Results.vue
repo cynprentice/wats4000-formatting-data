@@ -11,7 +11,7 @@
       <!-- Stretch goal: Added the background image here. -->
          
       <li class="movie-item"
-       v-for="result in results" :key="result" :style='`background-image:url("https://image.tmdb.org/t/p/w150_and_h225_bestv2/` + result.backdrop_path + `");`'>
+       v-for="result in results" :key="result.id" :style='`background-image:url("https://image.tmdb.org/t/p/w150_and_h225_bestv2/` + result.backdrop_path + `");`'>
 
         <img v-bind:src="'https://image.tmdb.org/t/p/w150_and_h225_bestv2'+ result.poster_path" v-bind:alt="result.title + 'Poster'" class="poster-image">
         <h2 class="title"><a v-bind:href="'https://www.themoviedb.org/movie/'+result.id">{{ result.title }}</a></h2>
